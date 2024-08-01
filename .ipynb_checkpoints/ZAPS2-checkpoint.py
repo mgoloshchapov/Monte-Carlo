@@ -7,17 +7,10 @@ from numba import njit, prange
 def ww(z):  # beam radius from z
     return w0 * np.sqrt(1 + ((lamb * z)/(np.pi * w0**2))**2 * 1e-6)  # mkm
 
-@njit
-def kinetic(Vx, Vy, Vz):
-    return 1.67 * m*(Vx**2 + Vy**2 + Vz**2)/(2 * 1.38) * 1e2
 
 @njit
 def pot_energy(x, y, z):  # Potential energy of atom
     return -U0 * w0**2/(ww(z) ** 2) * np.exp(-2 * (x ** 2 + y ** 2) / (ww(z) ** 2))
-
-@njit
-def energy(x, y, z, Vx, Vy, Vz):
-    return kinetic(Vx, Vy, Vz) + pot_energy(x, y, z)
 
 
 @njit
@@ -34,9 +27,9 @@ def rnd(x, Delta, del_a, df):  # Trial variances of distributions
 
 @njit
 def density(x, y, z, Vx, Vy, Vz, T):  # Probability density function (pdf)
-    return 0.0001+np.exp(-1.67/(2 * 1.38 * 1e-2) * m/T * (Vx**2 + Vy**2 + Vz**2)) \
+    return np.exp(-1.67/(2 * 1.38 * 1e-2) * m/T * (Vx**2 + Vy**2 + Vz**2)) \
         * np.exp(-pot_energy(x, y, z)/T)
-    # return 1/(np.exp((energy(x, y, z, Vx, Vy, Vz))/T) - 1)
+
 
 @njit
 def metropolis_hastings(target_density, x0, T, del_a, df, N_m_h):  # generate samples that follow pdf
@@ -50,16 +43,9 @@ def metropolis_hastings(target_density, x0, T, del_a, df, N_m_h):  # generate sa
     for i in prange(N_m_h):
         xt_candidate = rnd(xt, Delta(T), del_a, df)
         accept_prob = (target_density(*xt_candidate, T))/(target_density(*xt, T))
-        # accept_prob = np.exp(-(energy(*xt_candidate)-energy(*xt))/T)
         if np.random.uniform(0, 1) < accept_prob:
             k += 1
             xt = xt_candidate
-        # else:
-        #     while np.random.uniform(0, 1) >= accept_prob:
-        #         xt_candidate = rnd(xt, Delta(T), del_a, df)
-        #         accept_prob = np.exp(-(energy(*xt_candidate) - energy(*xt)) / T)
-        #         # accept_prob = (target_density(*xt_candidate, T)) / (target_density(*xt, T))
-        #     xt = xt_candidate
         samples.append(xt)
         acc.append(accept_prob)
     print('Accept_prob =', k/N_m_h)  # Probability of acceptance
@@ -116,10 +102,9 @@ def Delta(T):  # generate variations of arrays with normal distribution
     w_r = np.sqrt((4 * U0 * 1.38) / (1.67 * m * w0 ** 2)) * np.sqrt(1e-2)  # MHz
 
     # standart devitations
-    delta_x = 0.1 * np.sqrt((1.38 * T) / (m * 1.67 * w_r ** 2)) * np.sqrt(1e-2)
-    delta_y = delta_x
-    delta_z = 0.1 * np.sqrt((1.38 * T) / (m * 1.67 * w_z ** 2)) * np.sqrt(1e-2)
-
+    delta_x = np.sqrt((1.38 * T) / (m * 1.67 * w_r ** 2)) * np.sqrt(1e-2)/10
+    delta_y = 0.1*delta_x
+    delta_z = 0.1**np.sqrt((1.38 * T) / (m * 1.67 * w_z ** 2)) * np.sqrt(1e-2)
 
     delta_Vx = np.sqrt((1.38 * T) / (m * 1.67)) * np.sqrt(1e-2)
     delta_Vy = delta_Vx
@@ -233,7 +218,6 @@ def Gelman_Rubin(T, del_a, df):
     J = 10
     for i in range(J):
         s = metropolis_hastings(density, tuple(np.transpose(np.array((MaxBol(Delta(T)))))[0]), T, del_a, df, N_m_h)
-        #s = MaxBol(Delta(T))
         a.append(s)
         for j in range(6):
             av[j].append(np.average(s[j]))
@@ -298,24 +282,14 @@ N = 200000  # number of samples in normal distribution
 N_m_h = 500000  # number of samples in Metropolis-Hastings algorithm
 U0 = 700  # mkK
 
-tau = np.linspace(0, 50, 100)
-print('wwww')
+tau = np.linspace(0, 50, 20)
+print('faaaaaa')
     # exp, tau = read_file('Files\R_R24.dat')
     # plot_beauty()  # axis captions
     # plt.plot(tau, exp, 'blue')
     # avg, T = fit(exp, 150, 100)
     # plt.plot(tau, avg)
-sravni(100, 1, 4, 10, tau)
-del_a = 1
-df = 4
-T = 100
-s = metropolis_hastings(density, tuple(np.transpose(np.array((MaxBol(Delta(T)))))[0]), T, del_a, df, N_m_h)
-a = MaxBol(Delta(T))
-x, y, z, Vx, Vy, Vz = np.transpose(a)[0]
-print(x, y, z, Vx, Vy, Vz)
-print(pot_energy(x, y, z)/T)
-print(kinetic(Vx, Vy, Vz)/T)
-print(density(x, y, z, Vx, Vy, Vz, T))
+# sravni(30, 1.1, 1, 10, tau)
     # print('Temperature =', T)
 plt.show()
 
