@@ -34,10 +34,9 @@ def rnd(x, Delta, del_a, df):  # Trial variances of distributions
 
 @njit
 def density(x, y, z, Vx, Vy, Vz, T):  # Probability density function (pdf)
-    return 0.0001+np.exp(-1.67/(2 * 1.38 * 1e-2) * m/T * (Vx**2 + Vy**2 + Vz**2)) \
-        * np.exp(-pot_energy(x, y, z)/T)
-    # return 1/(np.exp((energy(x, y, z, Vx, Vy, Vz))/T) - 1)
-
+    # return 0.0001+np.exp(-1.67/(2 * 1.38 * 1e-2) * m/T * (Vx**2 + Vy**2 + Vz**2)) \
+    #     * np.exp(-pot_energy(x, y, z)/T)
+     return (np.exp(-(energy(x, y, z, Vx, Vy, Vz))/T))
 @njit
 def metropolis_hastings(target_density, x0, T, del_a, df, N_m_h):  # generate samples that follow pdf
     # del_a: Trial standard deviation
@@ -300,23 +299,24 @@ U0 = 700  # mkK
 
 tau = np.linspace(0, 50, 100)
 print('wwww')
-    # exp, tau = read_file('Files\R_R24.dat')
-    # plot_beauty()  # axis captions
-    # plt.plot(tau, exp, 'blue')
-    # avg, T = fit(exp, 150, 100)
-    # plt.plot(tau, avg)
-sravni(100, 1, 4, 10, tau)
-del_a = 1
-df = 4
-T = 100
-s = metropolis_hastings(density, tuple(np.transpose(np.array((MaxBol(Delta(T)))))[0]), T, del_a, df, N_m_h)
-a = MaxBol(Delta(T))
-x, y, z, Vx, Vy, Vz = np.transpose(a)[0]
-print(x, y, z, Vx, Vy, Vz)
-print(pot_energy(x, y, z)/T)
-print(kinetic(Vx, Vy, Vz)/T)
-print(density(x, y, z, Vx, Vy, Vz, T))
-    # print('Temperature =', T)
+exp, tau = read_file('Files/2023_09_10_release_recapture.dat')
+plot_beauty()  # axis captions
+plt.plot(tau, exp, 'blue')
+avg, T = fit(exp, 150, 100)
+print('Temperature =', T)
+plt.plot(tau, avg)
+# sravni(150, 1, 4, 10, tau)
+# del_a = 1
+# df = 4
+# T = 100
+# s = metropolis_hastings(density, tuple(np.transpose(np.array((MaxBol(Delta(T)))))[0]), T, del_a, df, N_m_h)
+# a = MaxBol(Delta(T))
+# x, y, z, Vx, Vy, Vz = np.transpose(a)[0]
+# print(x, y, z, Vx, Vy, Vz)
+# print(pot_energy(x, y, z)/T)
+# print(kinetic(Vx, Vy, Vz)/T)
+# print(density(x, y, z, Vx, Vy, Vz, T))
+
 plt.show()
 
 

@@ -1,0 +1,53 @@
+# Log started at 2024-07-17 06:39:13.
+# Total number of iterations = 31.
+# Number of averages = 600.
+# Scan range (start, stop, step) = (0, 30, 1).
+# List of input parameters:
+#   IN0 - Misc.scan x.
+# List of actions:
+#   ACT0 - Calibration.Stabilize lasers: calib iter 0, calib time (sec) 60, initial calib true.
+#   ACT1 - Sorting: max iter 10000, MOT disable false.
+#   ACT2 - Sequence.Clear.
+#   ACT3 - Sequence.Init devices.
+#   ACT4 - Sequence.Delay: time (us) 30000.
+#   ACT5 - Sequence.AH coils: Field on false.
+#   ACT6 - Sequence.Dipole trap en: Trap on false.
+#   ACT7 - Sequence.Delay: time (us) x.
+#   ACT8 - Sequence.Dipole trap en: Trap on true.
+#   ACT9 - Sequence.AH coils: Field on true.
+#   ACT10 - Sequence.Exec.
+#   ACT11 - Camera.Shot.
+# List of output parameters:
+#   OUT0 - Trap.Filled: trap 54.
+#          X         OUT0   STDEV_OUT0          IN0 
+    0.000000        0.933        0.010     0.000000 
+    1.000000        0.953        0.009     1.000000 
+    2.000000        0.908        0.012     2.000000 
+    3.000000        0.763        0.017     3.000000 
+    4.000000        0.630        0.020     4.000000 
+    5.000000        0.487        0.020     5.000000 
+    6.000000        0.423        0.020     6.000000 
+    7.000000        0.302        0.019     7.000000 
+    8.000000        0.295        0.019     8.000000 
+    9.000000        0.205        0.016     9.000000 
+   10.000000        0.178        0.016    10.000000 
+   11.000000        0.142        0.014    11.000000 
+   12.000000        0.118        0.013    12.000000 
+   13.000000        0.113        0.013    13.000000 
+   14.000000        0.122        0.013    14.000000 
+   15.000000        0.085        0.011    15.000000 
+   16.000000        0.087        0.011    16.000000 
+   17.000000        0.073        0.011    17.000000 
+   18.000000        0.043        0.008    18.000000 
+   19.000000        0.070        0.010    19.000000 
+   20.000000        0.047        0.009    20.000000 
+   21.000000        0.047        0.009    21.000000 
+   22.000000        0.032        0.007    22.000000 
+   23.000000        0.028        0.007    23.000000 
+   24.000000        0.040        0.008    24.000000 
+   25.000000        0.035        0.008    25.000000 
+   26.000000        0.035        0.008    26.000000 
+   27.000000        0.042        0.008    27.000000 
+   28.000000        0.028        0.007    28.000000 
+   29.000000        0.025        0.006    29.000000 
+   30.000000        0.012        0.004    30.000000 

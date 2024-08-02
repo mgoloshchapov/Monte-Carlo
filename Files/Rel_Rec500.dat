@@ -1,0 +1,46 @@
+# Log started at 2024-07-23 13:37:37.
+# Total number of iterations = 24.
+# Number of averages = 400.
+# Scan range (start, stop, step) = (0, 46, 2).
+# List of input parameters:
+#   IN0 - Misc.scan x.
+# List of actions:
+#   ACT0 - Calibration.Stabilize lasers: calib iter 0, calib time (sec) 60, initial calib true.
+#   ACT1 - Sorting: max iter 10000, MOT disable false.
+#   ACT2 - Sequence.Clear.
+#   ACT3 - Sequence.Init devices.
+#   ACT4 - Sequence.Bias field and trap ramp: Bias and ramp on true, Trap ramp disable false.
+#   ACT5 - Sequence.Pump array state.
+#   ACT6 - Sequence.Dipole trap en: Trap on false.
+#   ACT7 - Sequence.Delay: time (us) x.
+#   ACT8 - Sequence.Dipole trap en: Trap on true.
+#   ACT9 - Sequence.Bias field and trap ramp: Bias and ramp on false, Trap ramp disable false.
+#   ACT10 - Sequence.Exec.
+#   ACT11 - Camera.Shot.
+# List of output parameters:
+#   OUT0 - Trap.Filled: trap 54.
+#          X         OUT0   STDEV_OUT0          IN0 
+    0.000000        0.961        0.017     0.000000 
+    2.000000        0.961        0.017     2.000000 
+    4.000000        0.867        0.030     4.000000 
+    6.000000        0.766        0.038     6.000000 
+    8.000000        0.609        0.043     8.000000 
+   10.000000        0.453        0.044    10.000000 
+   12.000000        0.383        0.043    12.000000 
+   14.000000        0.320        0.041    14.000000 
+   16.000000        0.250        0.038    16.000000 
+   18.000000        0.211        0.036    18.000000 
+   20.000000        0.172        0.033    20.000000 
+   22.000000        0.172        0.033    22.000000 
+   24.000000        0.180        0.034    24.000000 
+   26.000000        0.125        0.029    26.000000 
+   28.000000        0.109        0.028    28.000000 
+   30.000000        0.156        0.032    30.000000 
+   32.000000        0.078        0.024    32.000000 
+   34.000000        0.086        0.025    34.000000 
+   36.000000        0.070        0.023    36.000000 
+   38.000000        0.031        0.015    38.000000 
+   40.000000        0.094        0.026    40.000000 
+   42.000000        0.039        0.017    42.000000 
+   44.000000        0.016        0.011    44.000000 
+   46.000000        0.039        0.017    46.000000 
